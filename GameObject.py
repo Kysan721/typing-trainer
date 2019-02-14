@@ -109,6 +109,8 @@ class ScoreBar():
         # affiche le score et un tas d'autre merde
     def add(self, stuff, points=1):
         pass
+    def draw(self, screen):
+        pass
 
 
         

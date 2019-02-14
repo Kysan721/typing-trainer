@@ -40,9 +40,8 @@ while running:
     genWord()
     input_box.draw(screen)
     for word in word_list:
-        word.update()
+        word.update("fqds")
     
-    text.draw(screen)
 
 
     # pygame.display.flip()
