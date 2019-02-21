@@ -66,7 +66,7 @@ class Word(pygame.sprite.Sprite):
         self.bg_color = None
         self.label = self.font.render(str(self.text), 15, self.base_color, self.bg_color)
         
-
+        self.combo = 0
 
         self.rect = self.label.get_rect()
         self.rect.center = pos
@@ -77,23 +77,25 @@ class Word(pygame.sprite.Sprite):
 
     def update(self, word):
         self.move(0, 1)
-        pass
-        # on parcour les deux chaine si elle sont similaire sur plus de zero lettre c'est bon
+        
 
-        """
-        algo a faire
-        c | c -> ok 1
-        h | h -> ok 2
-        a | a -> ok 3
-        p | t -> non
+        counter = 0
+        for k in range(len(word)):
+            if self.text[k] == word[k]:
+                counter += 1
 
-        3 -> on surligne
+        if counter == len(word):
+            # si le bout du mot écris correspond avec le debut du mot de ce mot alors on met le fond en rouge parceque ça veux dire qu'il est target
+            self.label = self.font.render(str(self.text), 15, self.base_color, (255, 0, 0))
+        else:
+            # sinon couleur par defaut
+            self.label = self.font.rendre(str(self.text), self.base_color, self.bg_color)
 
-        """
+        return self.text == word        # si le mot est completé return True et signifie que l'on peux alors le supprf < 
 
-        # class avec laquel on checkera si un bout du mot est écrit dans ce cas la on change la couleur du fond genre on le met en rouge
 
-        # si elle colide avec le bas = lose ou sinon faudrai que ça calcule la vitesse de frappe et que ça s'addapte en conséquence
+
+
 
 
     def draw(self, screen):
@@ -111,6 +113,21 @@ class ScoreBar():
         pass
     def draw(self, screen):
         pass
+
+
+class Timer:
+    def __init__(self, max_time):
+        self.maxTime = max_time
+        self.start_ticks = pygame.time.get_ticks()
+        
+    def reset():
+        pass
+    def isFinish():
+        seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
+        if seconds > self.maxTime:
+            return True
+            # if finish reset
+
 
 
         

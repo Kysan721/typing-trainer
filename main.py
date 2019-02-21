@@ -20,9 +20,12 @@ input_box = InputBar(screen)
 running = True
 
 
+timer = Timer('2')
+
+
 def genWord():
     global word_list
-    rWord = 'chat', 'chapeau', 'chapiteau'
+    rWord = r.choice(['chat', 'chapeau', 'chapiteau'])
     rPs = randPos(screen.get_width(), screen.get_height())
     word_list.add(Word(rWord, rPs))
 
@@ -38,9 +41,12 @@ while running:
 
     screen.fill((0, 0, 0))
     genWord()
-    input_box.draw(screen)
+    
     for word in word_list:
-        word.update("fqds")
+        word.draw(screen)
+        if word.update(input_box.get_text()):
+            word_list.remove(word)
+    input_box.draw(screen)
     
 
 
