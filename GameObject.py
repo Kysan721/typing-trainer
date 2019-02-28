@@ -9,8 +9,8 @@ class InputBar(pygame.sprite.Sprite):
 
         pygame.sprite.Sprite.__init__(self)
 
-        # pour l'affichage du text enté
-        self.font =  pygame.font.SysFont('Arial', 30)
+        # pour l'affichage du text entré
+        self.font =  pygame.font.SysFont('Verdana', 30)
         self.text = 'none'
         self.text_label = self.font.render(self.text, 10, (0, 255, 0))
          
@@ -78,21 +78,24 @@ class Word(pygame.sprite.Sprite):
     def update(self, word):
         self.move(0, 1)
         
+        try:
+            counter = 0
+            for k in range(len(word)):
+                if self.text[k] == word[k]:
+                    counter += 1
+                else:
+                    break
 
-        counter = 0
-        for k in range(len(word)):
-            if self.text[k] == word[k]:
-                counter += 1
+            if counter == len(word):
+                # si le bout du mot écris correspond avec le debut du mot de ce mot alors on met le fond en rouge parceque ça veux dire qu'il est target
+                self.label = self.font.render(str(self.text), 15, self.base_color, (0, 0, 255))
+            else:
+                # sinon couleur par defaut
+                self.label = self.font.render(str(self.text), 15, self.base_color, self.bg_color)
 
-        if counter == len(word):
-            # si le bout du mot écris correspond avec le debut du mot de ce mot alors on met le fond en rouge parceque ça veux dire qu'il est target
-            self.label = self.font.render(str(self.text), 15, self.base_color, (255, 0, 0))
-        else:
-            # sinon couleur par defaut
-            self.label = self.font.rendre(str(self.text), self.base_color, self.bg_color)
-
-        return self.text == word        # si le mot est completé return True et signifie que l'on peux alors le supprf < 
-
+            return self.text == word        # si le mot est completé return True et signifie que l'on peux alors le supprf < 
+        except:
+            return False
 
 
 
@@ -120,11 +123,12 @@ class Timer:
         self.maxTime = max_time
         self.start_ticks = pygame.time.get_ticks()
         
-    def reset():
-        pass
-    def isFinish():
+    def reset(self):
+        self.start_ticks = pygame.time.get_ticks()
+
+    def isFinish(self):
         seconds=(pygame.time.get_ticks()-self.start_ticks)/1000
-        if seconds > self.maxTime:
+        if float(seconds) > float(self.maxTime):
             return True
             # if finish reset
 
